@@ -4,14 +4,15 @@ function lengthOfLongestSubstring(s: string): number {
   for (let i = 0; i < s.length; i++) {
     const letter = s[i];
     const letterMapper = {
-      [letter]: true,
+      [letter]: i,
     };
     let tempResult = 1;
     for (let j = i + 1; j < s.length; j++) {
       if (letterMapper.hasOwnProperty(s[j])) {
+        i = letterMapper[s[j]];
         break;
       } else {
-        letterMapper[s[j]] = true;
+        letterMapper[s[j]] = j;
         tempResult++;
       }
     }
