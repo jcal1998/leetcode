@@ -23,3 +23,27 @@ function lengthOfLongestSubstring(s: string): number {
 
   return result;
 }
+
+// Time complexity: O(n^2)
+// Space complexity: O(n)
+
+function lengthOfLongestSubstring2(s: string): number {
+  let result = 0;
+  let leftIndex = 0;
+  const letterSet = new Set();
+
+  for (let rightIndex = 0; rightIndex < s.length; rightIndex++) {
+    while (letterSet.has(s[rightIndex])) {
+      letterSet.delete(s[leftIndex]);
+      leftIndex++;
+    }
+
+    letterSet.add(s[rightIndex]);
+    result = Math.max(result, rightIndex - leftIndex + 1);
+  }
+
+  return result;
+}
+
+// Time complexity: O(n)
+// Space complexity: O(n)
