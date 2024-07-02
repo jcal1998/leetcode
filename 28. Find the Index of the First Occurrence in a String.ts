@@ -1,21 +1,10 @@
 function strStr(haystack: string, needle: string): number {
+  const matLen = needle.length;
   for (let i = 0; i < haystack.length; i++) {
-    let current = i;
-    let matchIndex = 0;
-    while (
-      haystack[current] !== undefined &&
-      needle[matchIndex] !== undefined &&
-      haystack[current] === needle[matchIndex]
-    ) {
-      console.log(current, haystack[current], needle[matchIndex]);
-      current++;
-      matchIndex++;
-    }
-
-    console.log(matchIndex);
-    if (matchIndex === needle.length) {
-      console.log("caiu");
-      return i;
+    if (haystack[i] === needle[0]) {
+      if (haystack.slice(i, i + matLen) === needle) {
+        return i;
+      }
     }
   }
   return -1;
