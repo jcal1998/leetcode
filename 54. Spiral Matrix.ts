@@ -34,3 +34,31 @@ function spiralOrder(matrix: number[][]): number[] {
 
   return result;
 }
+
+// chat gpt
+function spiralOrder(matrix: number[][]): number[] {
+  const result = [];
+
+  while (matrix.length) {
+    const firstLine = matrix.shift();
+    if (firstLine) result.push(...firstLine);
+    matrix = rotate(matrix);
+  }
+
+  return result;
+}
+
+const rotate = (matrix: number[][]) => {
+  const rotated = [];
+  if (!matrix.length) return [];
+
+  for (let col = matrix[0].length - 1; col >= 0; col--) {
+    const newRow = [];
+    for (let row = 0; row < matrix.length; row++) {
+      newRow.push(matrix[row][col]);
+    }
+    rotated.push(newRow);
+  }
+
+  return rotated;
+};
