@@ -24,3 +24,27 @@ function isValidSudoku(board: string[][]): boolean {
 
   return true;
 }
+
+// chat gpt
+function isValidSudoku(board: string[][]): boolean {
+  const row = Array.from({ length: 9 }, () => new Set());
+  const col = Array.from({ length: 9 }, () => new Set());
+  const sqr = Array.from({ length: 9 }, () => new Set());
+  for (let i = 0; i < 9; i++) {
+    for (let j = 0; j < 9; j++) {
+      const num = board[i][j];
+      if (num !== ".") {
+        const key = 3 * Math.floor(i / 3) + Math.floor(j / 3);
+
+        if (row[i].has(num) || col[j].has(num) || sqr[key].has(num)) {
+          return false;
+        }
+        row[i].add(num);
+        col[j].add(num);
+        sqr[key].add(num);
+      }
+    }
+  }
+
+  return true;
+}
