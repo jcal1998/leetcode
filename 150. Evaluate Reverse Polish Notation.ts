@@ -1,5 +1,4 @@
 function evalRPN(tokens: string[]): number {
-  let result;
   const operands = ["+", "-", "*", "/"];
   const auxOperand = [];
 
