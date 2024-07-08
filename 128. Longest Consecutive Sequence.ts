@@ -17,3 +17,25 @@ function longestConsecutive(nums: number[]): number {
 
   return Math.max(biggest, temp);
 }
+
+// chatgpt
+function longestConsecutive(nums: number[]): number {
+  const numsSet = new Set(nums);
+  let result = 0;
+
+  for (let num of numsSet) {
+    if (!numsSet.has(num - 1)) {
+      let cur = num;
+      let curCount = 1;
+
+      while (numsSet.has(cur + 1)) {
+        curCount++;
+        cur++;
+      }
+
+      result = Math.max(result, curCount);
+    }
+  }
+
+  return result;
+}
