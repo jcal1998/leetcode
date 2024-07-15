@@ -15,9 +15,11 @@ function myPow(x: number, n: number): number {
 // chat gpt
 function myPow(x: number, n: number): number {
   if (n === 0) return 1;
+  // x¹0 = (x^5)² = (x^4 * x)²
+  // x³ = x² * x
   if (n < 0) {
-    x = 1 / x;
     n = -n;
+    x = 1 / x;
   }
   let result = 1;
   while (n > 0) {
@@ -27,5 +29,6 @@ function myPow(x: number, n: number): number {
     x *= x;
     n = Math.floor(n / 2);
   }
+
   return result;
 }
