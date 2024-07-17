@@ -12,10 +12,10 @@ class MaxHeap {
 
   extractMax() {
     if (this.size() === 0) return 0;
-    if (this.size() === 1) return this.heap.pop();
+    if (this.size() === 1) return this.heap.pop()!;
 
     const max = this.heap[0];
-    this.heap[0] = this.heap.pop();
+    this.heap[0] = this.heap.pop()!;
     this.heapifyDown();
 
     return max;
@@ -62,11 +62,11 @@ class MaxHeap {
   }
 
   private getLeftChildIndex(val: number) {
-    return 2 * val - 1;
+    return 2 * val + 1;
   }
 
   private getRightChildIndex(val: number) {
-    return 2 * val - 2;
+    return 2 * val + 2;
   }
 
   private swap(indexOne: number, indexTwo: number) {
