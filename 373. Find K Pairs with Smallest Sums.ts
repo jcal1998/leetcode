@@ -117,3 +117,117 @@ function kSmallestPairs(
 
   return result.reverse();
 }
+
+// chat gpt
+class MinHeap {
+  heap: [number, number, number][];
+
+  constructor() {
+    this.heap = [];
+  }
+
+  insert(val: [number, number, number]) {
+    this.heap.push(val);
+    this.heapifyUp();
+  }
+
+  extractMin(): [number, number, number] | null {
+    if (this.size() === 0) return null;
+    if (this.size() === 1) return this.heap.pop()!;
+
+    const min = this.heap[0];
+    this.heap[0] = this.heap.pop()!;
+    this.heapifyDown();
+
+    return min;
+  }
+
+  size() {
+    return this.heap.length;
+  }
+
+  private heapifyUp() {
+    let index = this.heap.length - 1;
+
+    while (
+      index > 0 &&
+      this.heap[index][0] < this.heap[this.getParentIndex(index)][0]
+    ) {
+      this.swap(index, this.getParentIndex(index));
+      index = this.getParentIndex(index);
+    }
+  }
+
+  private heapifyDown() {
+    let index = 0;
+
+    while (true) {
+      const left = this.getLeftChildIndex(index);
+      const right = this.getRightChildIndex(index);
+      let smallest = index;
+
+      if (
+        left < this.heap.length &&
+        this.heap[left][0] < this.heap[smallest][0]
+      ) {
+        smallest = left;
+      }
+
+      if (
+        right < this.heap.length &&
+        this.heap[right][0] < this.heap[smallest][0]
+      ) {
+        smallest = right;
+      }
+
+      if (smallest === index) break;
+
+      this.swap(smallest, index);
+      index = smallest;
+    }
+  }
+
+  private getParentIndex(val: number) {
+    return Math.floor((val - 1) / 2);
+  }
+
+  private getLeftChildIndex(val: number) {
+    return 2 * val + 1;
+  }
+
+  private getRightChildIndex(val: number) {
+    return 2 * val + 2;
+  }
+
+  private swap(indexOne: number, indexTwo: number) {
+    [this.heap[indexOne], this.heap[indexTwo]] = [
+      this.heap[indexTwo],
+      this.heap[indexOne],
+    ];
+  }
+}
+
+function kSmallestPairs(
+  nums1: number[],
+  nums2: number[],
+  k: number
+): number[][] {
+  const result: [number, number][] = [];
+  const minHeap = new MinHeap();
+
+  for (let i = 0; i < Math.min(nums1.length, k); i++) {
+    minHeap.insert([nums1[i] + nums2[0], i, 0]);
+  }
+
+  while (k > 0 && minHeap.size() > 0) {
+    const [sum, i, j] = minHeap.extractMin()!;
+    result.push([nums1[i], nums2[j]]);
+    k--;
+
+    if (j + 1 < nums2.length) {
+      minHeap.insert([nums1[i] + nums2[j + 1], i, j + 1]);
+    }
+  }
+
+  return result;
+}
