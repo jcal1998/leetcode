@@ -4,7 +4,7 @@ function coinChange(coins: number[], amount: number): number {
 
   for (let i = 1; i <= amount; i++) {
     for (const coin of coins) {
-      if (coin <= amount && dp[i - coin] !== undefined) {
+      if (i - coin >= 0 && dp[i - coin] !== Infinity) {
         dp[i] = Math.min(dp[i], dp[i - coin] + 1);
       }
     }
