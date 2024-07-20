@@ -23,3 +23,23 @@ function canCompleteCircuit(gas: number[], cost: number[]): number {
 
   return result;
 }
+
+// chatgpt
+function canCompleteCircuit(gas: number[], cost: number[]): number {
+  const len = gas.length;
+  let currentGas = 0;
+  let totalGas = 0;
+  let result = 0;
+
+  for (let i = 0; i < len; i++) {
+    totalGas += gas[i] - cost[i];
+    currentGas += gas[i] - cost[i];
+
+    if (currentGas < 0) {
+      currentGas = 0;
+      result = i + 1;
+    }
+  }
+
+  return totalGas >= 0 ? result : -1;
+}
