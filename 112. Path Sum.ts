@@ -25,3 +25,19 @@ function hasPathSum(root: TreeNode | null, targetSum: number): boolean {
 
   return dfs(root, 0);
 }
+
+// chat gpt
+function hasPathSum(root: TreeNode | null, targetSum: number): boolean {
+  const dfs = (node: TreeNode, sum) => {
+    if (!node) return false;
+
+    sum += node.val;
+    if (!node.left && !node.right) {
+      return sum === targetSum;
+    }
+
+    return dfs(node.left, sum) || dfs(node.right, sum);
+  };
+
+  return dfs(root, 0);
+}
