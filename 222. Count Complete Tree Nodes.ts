@@ -29,25 +29,23 @@ function countNodes(root: TreeNode | null): number {
 
 // chat gpt
 function countNodes(root: TreeNode | null): number {
-  function height(node: TreeNode | null): number {
-    let h = 0;
+  if (root === null) return 0;
+
+  const getHeight = (node: TreeNode) => {
+    let count = 0;
     while (node) {
+      count++;
       node = node.left;
-      h++;
     }
-    return h;
-  }
+    return count;
+  };
 
-  function count(node: TreeNode | null): number {
-    if (!node) return 0;
-    const hLeft = height(node.left);
-    const hRight = height(node.right);
-    if (hLeft === hRight) {
-      return (1 << hLeft) + count(node.right);
-    } else {
-      return (1 << hRight) + count(node.left);
-    }
-  }
+  const lHeight = getHeight(root.left);
+  const rHeight = getHeight(root.right);
 
-  return count(root);
+  if (lHeight === rHeight) {
+    return (1 << lHeight) + countNodes(root.right);
+  } else {
+    return (1 << rHeight) + countNodes(root.left);
+  }
 }
