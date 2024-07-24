@@ -14,7 +14,7 @@ function rob(nums: number[]): number {
 }
 
 function rob(nums: number[]): number {
-  if (nums.length === 1) return 1;
+  if (nums.length === 1) return nums[0];
 
   const dp = new Array(nums.length);
   dp[0] = nums[0];
