@@ -15,7 +15,7 @@ function getImportance(employees: Employee[], id: number): number {
 
   return dfs(id);
 }
-function getImportanceBFS(employees: Employee[], id: number): number {
+function getImportance(employees: Employee[], id: number): number {
   const employeeMap = new Map<number, Employee>();
   for (const employee of employees) {
     employeeMap.set(employee.id, employee);
